@@ -2,12 +2,12 @@ package com.southwest.mybatis.service;
 
 import java.util.List;
 
+import com.southwest.mybatis.entity.User;
+import com.southwest.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itranswarp.learnjava.entity.User;
-import com.itranswarp.learnjava.mapper.UserMapper;
 
 @Component
 @Transactional
