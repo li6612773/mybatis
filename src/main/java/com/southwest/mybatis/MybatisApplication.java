@@ -1,17 +1,22 @@
 package com.southwest.mybatis;
 
 import com.southwest.mybatis.entity.User;
+import com.southwest.mybatis.service.UserService;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.hibernate5.SpringBeanContainer;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -22,8 +27,14 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class MybatisApplication {
 
+
+
     public static void main(String[] args) {
-        SpringApplication.run(MybatisApplication.class, args);
+        ApplicationContext applicationContext = SpringApplication.run(MybatisApplication.class, args);
+        UserService userService = applicationContext.getBean(UserService.class);
+
+
+
         if (userService.fetchUserByEmail("bob@example.com") == null) {
             User bob = userService.register("bob@example.com", "bob123", "Bob");
             System.out.println("Registered ok: " + bob);
@@ -44,6 +55,7 @@ public class MybatisApplication {
         User tom = userService.login("tom@example.com", "tomcat");
         System.out.println(tom);
     }
+
 
     @Bean
     DataSource createDataSource(

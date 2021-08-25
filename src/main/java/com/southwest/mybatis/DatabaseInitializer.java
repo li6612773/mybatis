@@ -19,7 +19,7 @@ public class DatabaseInitializer {
 		try (var conn = dataSource.getConnection()) {
 			try (var stmt = conn.createStatement()) {
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (" //
-						+ "id BIGINT IDENTITY NOT NULL PRIMARY KEY, " //
+						+ "id BIGINT auto_increment NOT NULL PRIMARY KEY, " //
 						+ "email VARCHAR(100) NOT NULL, " //
 						+ "password VARCHAR(100) NOT NULL, " //
 						+ "name VARCHAR(100) NOT NULL, " //
